@@ -9,7 +9,7 @@ const commentSchema = new Schema({
         type: Number,
         min: 1,
         max: 5,
-        required: true
+        required: false
     },
     text: {
         type: String,
@@ -39,11 +39,11 @@ const campsiteSchema = new Schema({
     },
     elevation: {
         type: Number,
-        required: true
+        required: false
     },
     cost: {
         type: Currency,
-        required: true,
+        required: false,
         min: 0
     },
     featured: {
