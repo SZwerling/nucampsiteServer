@@ -1,14 +1,17 @@
 const express = require('express');
 const passport = require('passport');
-const User = require('../models/user');
 const authenticate = require('../authenticate');
-const user = require('../models/user');
+const User = require('../models/user');
 
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-    res.send('respond with a resource');
+router.get('/', authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
+
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json(users);
+    
 });
 
 router.post('/signup', (req, res) => {
@@ -65,3 +68,14 @@ router.get('/logout', (req, res, next) => {
 });
 
 module.exports = router;
+
+// authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
+//     Campsite.create(req.body)
+//     .then(campsite => {
+//         console.log('Campsite Created ', campsite);
+//         res.statusCode = 200;
+//         res.setHeader('Content-Type', 'application/json');
+//         res.json(campsite);
+//     })
+//     .catch(err => next(err));
+// })

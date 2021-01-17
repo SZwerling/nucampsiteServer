@@ -9,7 +9,7 @@ const commentSchema = new Schema({
         type: Number,
         min: 1,
         max: 5,
-        required: false
+        required: true
     },
     text: {
         type: String,
@@ -33,23 +33,23 @@ const campsiteSchema = new Schema({
         type: String,
         required: true
     },
-    image: {
-        type: String,
-        required: true
-    },
-    elevation: {
-        type: Number,
-        required: false
-    },
-    cost: {
-        type: Currency,
-        required: false,
-        min: 0
-    },
-    featured: {
-        type: Boolean,
-        default: false
-    },
+    // image: {
+    //     type: String,
+    //     required: true
+    // },
+    // elevation: {
+    //     type: Number,
+    //     required: false
+    // },
+    // cost: {
+    //     type: Currency,
+    //     required: false,
+    //     min: 0
+    // },
+    // featured: {
+    //     type: Boolean,
+    //     default: false
+    // },
     comments: [commentSchema]
 }, {
     timestamps: true
