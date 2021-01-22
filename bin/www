@@ -8,7 +8,7 @@ var app = require('../app');
 var debug = require('debug')('nucampsiteserver:server');
 var http = require('http');
 
-const https = require('https');
+const https = require('https');  //node core module
 const fs = require('fs');
 
 /**
@@ -17,7 +17,7 @@ const fs = require('fs');
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-app.set('secPort', port+443);
+app.set('secPort', port+443); //accessed elsewhere with get
 
 /**
  * Create HTTP server.
@@ -37,12 +37,12 @@ server.on('listening', onListening);
  * Create HTTPS server.
  */ 
  
-const options = {
-  key: fs.readFileSync(__dirname+'/server.key'),
-  cert: fs.readFileSync(__dirname+'/server.cert')
+const options = {  //object w two properties
+  key: fs.readFileSync(__dirname+'/server.key'),  //reads in contents of key file to running memory
+  cert: fs.readFileSync(__dirname+'/server.cert') //reads in contents to server memory
 };
 
-const secureServer = https.createServer(options, app);
+const secureServer = https.createServer(options, app);  //create https server, passing in options obj
 
 /**
 * Listen on provided port, on all network interfaces.

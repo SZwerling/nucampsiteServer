@@ -10,6 +10,7 @@ var usersRouter = require("./routes/users");
 const campsitesRouter = require("./routes/campsitesRouter");
 const partnersRouter = require("./routes/partnersRouter");
 const promotionsRouter = require("./routes/promotionsRouter");
+const uploadRouter = require('./routes/uploadRouter');
 
 const mongoose = require("mongoose");
 
@@ -22,6 +23,7 @@ const connect = mongoose.connect(url, {
 });
 
 connect.then(
+  
   () => console.log("Connected correctly to server"),
   (err) => console.log.apply(err)
 );
@@ -29,10 +31,10 @@ connect.then(
 var app = express();
 
 // Secure traffic only
-app.all('*', (req, res, next) => {
+app.all('*', (req, res, next) => {  //directing all traffic to secure port
   if (req.secure) {
-    return next();
-  } else {
+    return next();  //passes to next middleware if connection is https
+  } else {  //else redirects to secure https
       console.log(`Redirecting to: https://${req.hostname}:${app.get('secPort')}${req.url}`);
       res.redirect(301, `https://${req.hostname}:${app.get('secPort')}${req.url}`);
   }
@@ -57,6 +59,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/campsites", campsitesRouter);
 app.use("/partners", partnersRouter);
 app.use("/promotions", promotionsRouter);
+app.use('/imageUpload', uploadRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
